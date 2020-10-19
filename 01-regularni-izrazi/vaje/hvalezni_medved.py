@@ -25,6 +25,16 @@ medved. Zvrhano zibelko sladkih hrušk mi je prinesel za en sam izdrt trn"."""
 # >>> find_words(test_text, 'de')
 # {'izdere', 'debel', 'oddide', 'začudeno'}
 ###############################################################################
+import re
+
+def find_words(text, substring):
+    pattern = re.compile(r'\s\w*' + substring + r'\w*\b')
+    # m1 = re.match(pattern, text)
+    # m2 = re.search(pattern, text) #prva pojavitec vzorca
+    m3 = re.findall(pattern, text) #vrne vse
+    return m3
+ 
+w = find_words(test_text, 'de')
 
 
 ###############################################################################
@@ -35,6 +45,12 @@ medved. Zvrhano zibelko sladkih hrušk mi je prinesel za en sam izdrt trn"."""
 # {'zibala', 'zibel', 'zibelko'}
 ###############################################################################
 
+def find_prefix(text, prefix):
+    pattern = re.compile(r'\b' + prefix + r'\w*')
+    return {match.group(0) for match in re.finditer(pattern, text)}
+
+p = find_prefix(test_text, 'zi')
+
 
 ###############################################################################
 # 3) Sestavite funkcijo [find_suffix], ki vrne množico vseh besed, ki se
@@ -44,6 +60,12 @@ medved. Zvrhano zibelko sladkih hrušk mi je prinesel za en sam izdrt trn"."""
 # {'zibala', 'razveselila', 'prestrašila', 'šivala', 'opazila', 'tla'}
 ###############################################################################
 
+def find_suffix(text, suffix):
+    pattern = re.compile(r'\b\w*' + suffix + r'\b')
+    return {match.group(0) for match in re.finditer(pattern, text)}
+
+s = find_suffix(test_text, 'la')
+
 
 ###############################################################################
 # 4) Sestavite funkcijo [double_letters], ki sprejme niz in vrne množico vseh
@@ -52,3 +74,12 @@ medved. Zvrhano zibelko sladkih hrušk mi je prinesel za en sam izdrt trn"."""
 # >>> double_letters('A volunteer is worth twenty pressed men.')
 # {'volunteer', 'pressed'}
 ###############################################################################
+
+def double_letters(text):
+    pattern = re.compile(r'\b\w*(?P<char>\w)(?P=char)\w*\b') #ta enka bo podvojila tole grupo ena (1) npr. (\w)\1
+    #m.groupdict() vrne slovar z imeni grup
+    #re.DOTALL    
+    return {m.group(0) for m in re.finditer(pattern, text)}
+    # return re.findall(pattern, text) #on vrne direktno strigne 
+
+d = double_letters('A volunteer is worth twenty pressed men.')
