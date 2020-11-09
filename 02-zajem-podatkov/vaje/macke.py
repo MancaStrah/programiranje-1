@@ -273,6 +273,7 @@ def read_file_to_string(directory, filename):
 
 def page_to_ads(page_content):
     """Funkcija poišče posamezne oglase, ki se nahajajo v spletni strani in
+
     vrne njih seznam"""
     rx = re.compile(r'<li class="EntityList-item EntityList-item--Regular'
                     r'(.*?)</article>',
@@ -285,6 +286,7 @@ def page_to_ads(page_content):
 
 
 def get_dict_from_ad_block(block):
+
     """Funkcija iz niza za posamezen oglasni blok izlušči podatke o imenu,
     lokaciji, datumu objave in ceni ter vrne slovar, ki vsebuje ustrezne
     podatke"""
@@ -367,6 +369,7 @@ def main(redownload=True, reparse=True):
     3. Podatke shrani v csv datoteko
     """
     # Najprej v lokalno datoteko shranimo glavno stran
+
 
     save_frontpage(cat_directory, frontpage_filename)
 
